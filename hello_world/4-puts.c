@@ -1,4 +1,4 @@
-#include <stdio.h>
+#include <stdio.h>  /* Inclusion of the standard input/output library */
 
 /*
  * Main function of the program
@@ -6,9 +6,9 @@
  */
 int main(void)
 {
-    /* Using the puts function to display the message */
-    puts("Programmer, c'est comme construire un puzzle multilingue");
-    
-    /* Returns 0 to indicate that the program terminated successfully */
-    return 0;
+	/* Using the puts function to display the message */
+	puts("Programming is like building a multilingual puzzle");
+
+	/* Returns 0 to indicate that the program terminated successfully */
+	return 0;
 }
