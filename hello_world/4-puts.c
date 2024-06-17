@@ -1,4 +1,4 @@
-#include <stdio.h>  /* Inclusion of the standard input/output library */
+#include <stdio.h>
 
 /*
  * Main function of the program
