@@ -9,13 +9,13 @@
  */
 int _strlen(char *s)
 {
-    int length = 0;
+	int length = 0;
 
-    while (s[length] != '\0')
-    {
-        length++;
-    }
-    return (length);
+	while (s[length] != '\0')
+	{
+		length++;
+	}
+	return (length);
 }
 
 /**
@@ -25,21 +25,21 @@ int _strlen(char *s)
  */
 char *_strdup(char *str)
 {
-    char *duplicate;
-    int len, i;
+	char *duplicate;
+	int len, i;
 
-    if (str == NULL)
-        return (NULL);
-    len = _strlen(str);
-    duplicate = malloc(sizeof(char) * (len + 1));
-    if (duplicate == NULL)
-        return (NULL);
-    for (i = 0; i < len; i++)
-    {
-        duplicate[i] = str[i];
-    }
-    duplicate[len] = '\0';
-    return (duplicate);
+	if (str == NULL)
+		return (NULL);
+	len = _strlen(str);
+	duplicate = malloc(sizeof(char) * (len + 1));
+	if (duplicate == NULL)
+		return (NULL);
+	for (i = 0; i < len; i++)
+	{
+		duplicate[i] = str[i];
+	}
+	duplicate[len] = '\0';
+	return (duplicate);
 }
 
 /**
@@ -52,24 +52,24 @@ char *_strdup(char *str)
  */
 dog_t *new_dog(char *name, float age, char *owner)
 {
-    dog_t *dog_instance;
+	dog_t *dog_instance;
 
-    dog_instance = malloc(sizeof(dog_t));
-    if (dog_instance == NULL)
-        return (NULL);
-    dog_instance->name = _strdup(name);
-    if (dog_instance->name == NULL)
-    {
-        free(dog_instance);
-        return (NULL);
-    }
-    dog_instance->age = age;
-    dog_instance->owner = _strdup(owner);
-    if (dog_instance->owner == NULL)
-    {
-        free(dog_instance->name);
-        free(dog_instance);
-        return (NULL);
-    }
-    return (dog_instance);
+	dog_instance = malloc(sizeof(dog_t));
+	if (dog_instance == NULL)
+		return (NULL);
+	dog_instance->name = _strdup(name);
+	if (dog_instance->name == NULL)
+	{
+		free(dog_instance);
+		return (NULL);
+	}
+	dog_instance->age = age;
+	dog_instance->owner = _strdup(owner);
+	if (dog_instance->owner == NULL)
+	{
+		free(dog_instance->name);
+		free(dog_instance);
+		return (NULL);
+	}
+	return (dog_instance);
 }
