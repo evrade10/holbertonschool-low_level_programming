@@ -11,7 +11,7 @@
  */
 void close_file(int fd)
 {
-	if ((close(fd)) < 0)
+	if (close(fd) < 0)
 	{
 		dprintf(STDERR_FILENO, "Error: Failed to close fd %d\n", fd);
 		exit(100);
@@ -25,8 +25,8 @@ void close_file(int fd)
  */
 void _cp(const char *source, const char *target)
 {
-	int check_write, fd_source, fd_target, check_read = 1;
-	char s[1024];
+	int fd_source, fd_target, check_read, check_write;
+	char buffer[1024];
 
 	fd_source = open(source, O_RDONLY);
 	if (fd_source < 0)
@@ -34,6 +34,7 @@ void _cp(const char *source, const char *target)
 		dprintf(STDERR_FILENO, "Error: Failed to read from file %s\n", source);
 		exit(98);
 	}
+
 	fd_target = open(target, O_CREAT | O_TRUNC | O_WRONLY, 0664);
 	if (fd_target < 0)
 	{
@@ -41,21 +42,22 @@ void _cp(const char *source, const char *target)
 		exit(99);
 	}
 
-	while (check_read)
+	while ((check_read = read(fd_source, buffer, 1024)) > 0)
 	{
-		check_read = read(fd_source, s, 1024);
-		if (check_read < 0)
-		{
-			dprintf(STDERR_FILENO, "Error: Failed to read from file %s\n", source);
-			exit(98);
-		}
-		check_write = write(fd_target, s, check_read);
+		check_write = write(fd_target, buffer, check_read);
 		if (check_write < 0 || check_write != check_read)
 		{
 			dprintf(STDERR_FILENO, "Error: Failed to write to %s\n", target);
 			exit(99);
 		}
 	}
+
+	if (check_read < 0)
+	{
+		dprintf(STDERR_FILENO, "Error: Failed to read from file %s\n", source);
+		exit(98);
+	}
+
 	close_file(fd_source);
 	close_file(fd_target);
 }
@@ -73,6 +75,7 @@ int main(int argc, char *argv[])
 		dprintf(STDERR_FILENO, "Usage: cp file_from file_to\n");
 		exit(97);
 	}
+
 	_cp(argv[1], argv[2]);
 	return (0);
 }
